@@ -1,23 +1,19 @@
 <?php 
 
-require_once "Model/TodoList.php";
+require_once "./Entity/TodoList.php";
+require_once "./Helper/InputHelper.php";
+require_once "./Repository/TodoListRepository.php";
+require_once "./Service/TodoListService.php";
+require_once "./View/TodoListView.php";
 
-// in folder BusinessLogic 
-require_once "BusinessLogic/ShowTodoList.php";
-require_once "BusinessLogic/AddTodoList.php";
-require_once "BusinessLogic/RemoveTodoList.php";
-require_once "BusinessLogic/EditTodoList.php";
-
-// in folder view
-require_once "View/viewShowTodoList.php";
-require_once "View/viewAddTodoList.php";
-require_once "View/viewRemoveTodoList.php";
-require_once "View/viewEditTodoList.php";
-
-// in helper
-require_once "Helper/Input.php";
+use Repository\TodoListRepositoryImpl;
+use Service\TodoListServiceImpl;
+use View\TodoListView;
 
 echo "Aplication Todolist" . PHP_EOL;
+$todoListRepository = new TodoListRepositoryImpl();
+$todoListService = new TodoListServiceImpl($todoListRepository);
+$todoListView = new TodoListView($todoListService);
 
-viewShowTodoList();
+$todoListView->showTodoList();
 
